@@ -17,7 +17,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html ng-app="regist">
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -28,14 +28,26 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <!--
+        <link rel="stylesheet" type="text/css" href="css/index.css">-->
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <title>Regist</title>
     </head>
     <body>
+
+        <div ui-view>
+            <div class="splash">
+                <div class="splash-center">
+                    <img src="img/logo.png" />
+                    <p>Splash Page</p>
+                </div>
+            </div>
+        </div>
+
+        <!--
         <div class="app">
             <h1>Hello Vuforia!</h1>
             <div id="deviceready" class="blink">
@@ -47,7 +59,30 @@
                 <button class="button" id="start-vuforia-and-recognise-in-sequence">Click here to start Vuforia and recognise targets in sequence</button>
             </div>
         </div>
+         -->
+
+        <!--libs-->
+        <script src="libs/angular/angular.js"></script>
+        <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="libs/ngstorage/ngStorage.js"></script>
+        <script src="libs/lodash/lodash.js"></script>
+
+        <!--cordova-->
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+
+        <!--vuforia
+        <script type="text/javascript" src="js/index.js"></script>-->
+
+        <!--core-->
+        <script type="text/javascript" src="modules/core/app.js"></script>
+
+        <!--shell
+        <script type="text/javascript" src="modules/shell/routing.js"></script>
+        <script type="text/javascript" src="modules/shell/contoller/shellCtrl.js"></script>-->
+
+        <!--scan-->
+        <script type="text/javascript" src="modules/scan/controller/scanCtrl.js"></script>
+
     </body>
 </html>

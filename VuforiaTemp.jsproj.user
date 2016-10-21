@@ -5,6 +5,6 @@
     <AndroidEmulatorID>AndroidDevice;Device</AndroidEmulatorID>
   </PropertyGroup>
   <PropertyGroup>
-    <ReferenceCachePath>C:\Users\Timothy243\AppData\Local\Temp\VuforiaTemp_refcache</ReferenceCachePath>
+    <ReferenceCachePath>C:\Users\WishWon\AppData\Local\Temp\lf02z001_VuforiaTemp_refcache</ReferenceCachePath>
   </PropertyGroup>
 </Project>
