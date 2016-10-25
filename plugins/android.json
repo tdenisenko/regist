@@ -7,6 +7,15 @@
         "files": {}
     },
     "installed_plugins": {
+        "com.hutchind.cordova.plugins.streamingmedia": {
+            "PACKAGE_NAME": "io.cordova.vuforiaplugin"
+        },
+        "com.moust.cordova.videoplayer": {
+            "PACKAGE_NAME": "io.cordova.vuforiaplugin"
+        },
+        "com.phonegap.plugins.OrientationLock": {
+            "PACKAGE_NAME": "io.cordova.vuforiaplugin"
+        },
         "cordova-plugin-android-support-v4": {
             "PACKAGE_NAME": "io.cordova.vuforiaplugin"
         },

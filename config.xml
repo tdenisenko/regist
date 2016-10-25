@@ -37,4 +37,7 @@
   <plugin name="cordova-plugin-media" version="2.3.0" />
   <plugin name="cordova-plugin-vuforia" version="3.2.0" />
   <plugin name="cordova-plugin-vuforia-sdk" version="1.0.0" />
+  <plugin name="com.hutchind.cordova.plugins.streamingmedia" version="1.0.2" />
+  <plugin name="com.moust.cordova.videoplayer" version="1.0.1" />
+  <plugin name="com.phonegap.plugins.OrientationLock" version="0.1" />
 </widget>

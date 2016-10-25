@@ -4,6 +4,7 @@
     angular.module('regist', [
         'ui.router',
         'ui.bootstrap',
+        'ngStorage',
         'scan'])
         .config(config)
         .run(run);
@@ -61,7 +62,8 @@
 
             document.addEventListener('deviceready', onDeviceReady, false);
             function onDeviceReady() {
-                console.log(device.cordova);
+                //console.log(device.cordova);
+                console.log(new Date().toLocaleTimeString());
             }
 
         }

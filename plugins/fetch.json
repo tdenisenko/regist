@@ -62,5 +62,31 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.hutchind.cordova.plugins.streamingmedia": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-streaming-media@1.0.2"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.moust.cordova.videoplayer": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/moust/cordova-plugin-videoplayer.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.phonegap.plugins.OrientationLock": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cogitor/PhoneGap-OrientationLock.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
