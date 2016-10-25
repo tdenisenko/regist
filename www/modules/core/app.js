@@ -5,7 +5,8 @@
         'ui.router',
         'ui.bootstrap',
         'ngStorage',
-        'scan'])
+        'homepage',
+        'login'])
         .config(config)
         .run(run);
 
@@ -14,13 +15,14 @@
     function run($rootScope, $state) {
         $rootScope.$on('$stateChangeSuccess', function () {
             $rootScope.currentState = $state.current.name;
+            console.log($rootScope.currentState);
         });
         //$state.go('splash', {}, { location: false });
     }
 
     config.$inject = ['$urlRouterProvider', '$compileProvider', '$httpProvider', '$stateProvider'];
     function config($urlRouterProvider, $compileProvider, $httpProvider, $stateProvider) {
-        $urlRouterProvider.otherwise('/scan');
+        $urlRouterProvider.otherwise('/homepage');
 
         //Splash Page
         /*$stateProvider
@@ -30,12 +32,23 @@
                 controller: 'splashCtrl'
             });*/
 
-        //Scan Page
+        //Home Page
         $stateProvider
-            .state('scan', {
-                url: '/scan',
-                templateUrl: 'modules/scan/view/scan.html',
-                controller: 'scanCtrl'
+            .state('homepage', {
+                url: '/homepage',
+                templateUrl: 'modules/homepage/view/homepage.html',
+                controller: 'homepageCtrl',
+                params: {
+                    splash: false
+                }
+            });
+
+        //Login Page
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                templateUrl: 'modules/login/view/login.html',
+                controller: 'loginCtrl'
             });
            
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ms-appx):/);
