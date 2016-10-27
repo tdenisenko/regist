@@ -5,6 +5,8 @@
         'ui.router',
         'ui.bootstrap',
         'ngStorage',
+        'darthwade.dwLoading',
+        'ngAnimate',
         'homepage',
         'login'])
         .config(config)

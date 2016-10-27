@@ -5,20 +5,99 @@
         .module('login', [])
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$scope', '$timeout', '$state', '$window', '$localStorage'];
+    loginCtrl.$inject = ['$scope', '$timeout', '$state', '$window', '$localStorage', '$http', '$loading', '$uibModal'];
 
-    function loginCtrl($scope, $timeout, $state, $window, $localStorage) {
+    function loginCtrl($scope, $timeout, $state, $window, $localStorage, $http, $loading, $uibModal) {
         $scope.loginRegister = 'Login';
-        $scope.username = '';
-        $scope.password = '';
-        $scope.firstname = '';
-        $scope.lastname = '';
+        $scope.loginData = {
+            username: '',
+            password: ''
+        };
+        $scope.registrationData = {
+            firstname: '',
+            lastname: '',
+            birthdate: '',
+            username: '',
+            password: '',
+            mobileNumbers: {
+                personal: '',
+                primary: '',
+                others: []
+            },
+            emails: {
+                primary: '',
+                personal: '',
+                organization: '',
+                others: []
+            }
+        };
+
+        $scope.datepicker = {
+            date: '',
+            dateOptions: {
+                datepickerMode: 'year'
+            },
+            popup: {
+                opened: false
+            },
+            openDatePicker: function () {
+                $scope.datepicker.popup.opened = true;
+            }
+        }
+
+        $scope.checkEmail = [true, false, false, false, false];
+        $scope.checkMobile = [true, false, false, false, false];
         $scope.switchLoginRegister = function () {
-            $scope.loginRegister = $scope.loginRegister === 'Register' ? 'Login' : 'Register';
+            switch ($scope.loginRegister) {
+                case 'Register':
+                    $scope.loginRegister = 'Login';
+                    $scope.loginData.username = $scope.registrationData.username;
+                    break;
+                case 'Login':
+                    $scope.loginRegister = 'Register';
+                    break;
+            }
             $scope.$apply;
         }
+
+        $scope.splash = false;
+
+        $scope.setPrimaryEmail = function (email, index) {
+            if (!$scope.checkEmail[index]) {
+                $scope.checkEmail[index] = true;
+            } else {
+                $scope.registrationData.emails.primary = email;
+                _.fill($scope.checkEmail, false, 0, index);
+                _.fill($scope.checkEmail, false, index + 1);
+            }
+        }
+
+        $scope.setPrimaryMobile = function (mobile, index) {
+            if (!$scope.checkMobile[index]) {
+                $scope.checkMobile[index] = true;
+            } else {
+                $scope.registrationData.mobileNumbers.primary = mobile;
+                _.fill($scope.checkMobile, false, 0, index);
+                _.fill($scope.checkMobile, false, index + 1);
+            }
+        }
+
+        $scope.addEmailField = function () {
+            if ($scope.registrationData.emails.others.length < 3) {
+                $scope.registrationData.emails.others.push('');
+            }
+        }
+
+        $scope.addMobileField = function () {
+            if ($scope.registrationData.mobileNumbers.others.length < 4) {
+                $scope.registrationData.mobileNumbers.others.push('');
+            }
+        }
+
         var videoUrlWeb = 'http://img-9gag-fun.9cache.com/photo/aDj0nzd_460sv.mp4';
         var videoUrlLocal = 'file:///android_asset/www/videos/tiger.mp4';
+        var loginUrl = 'http://regis.ladargroup.com/api/user/login';
+        var registrationUrl = 'http://regis.ladargroup.com/api/user/app-register';
         if ($localStorage.intro != undefined) {
             $localStorage.intro++;
         } else {
@@ -28,7 +107,6 @@
             $localStorage.intro = 2;
         }
         //$scope.orientation = 0;
-        $scope.splash = false;
 
         var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
         if (app) {
@@ -106,8 +184,121 @@
             });
         }
 
+        var ModalInstanceCtrl = function ($scope, $uibModalInstance, data) {
+            $scope.data = data;
+            $scope.close = function (/*result*/) {
+                $uibModalInstance.close($scope.data);
+            };
+        };
+
+        $scope.open = function (data) {
+            $scope.data = data;
+
+            var modalInstance = $uibModal.open({
+                templateUrl: 'modules/login/view/errormodal.html',
+                controller: ModalInstanceCtrl,
+                backdrop: true,
+                keyboard: true,
+                backdropClick: true,
+                size: 'lg',
+                resolve: {
+                    data: function () {
+                        return $scope.data;
+                    }
+                }
+            });
+
+            /*modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+                //alert( $scope.selected);
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });*/
+
+            return modalInstance;
+        }
+
         $scope.login = function () {
-            $state.go('homepage', { splash: true });
+            $loading.start('login');
+            $http.post(loginUrl, $scope.loginData).then(function (response) {
+                $loading.finish('login');
+                switch(response.data.status) {
+                    case 'USER_NOT_FOUND':
+                        var data = {
+                            boldTextTitle: '',
+                            textAlert: 'Username or password is invalid.',
+                            mode: 'danger'
+                        }
+                        var modal = $scope.open(data);
+                        $timeout(function () { modal.close(); }, 3000);
+                        break;
+                    case 'OK':
+                        $state.go('homepage', { splash: true });
+                        break;
+                    default:
+                        var data = {
+                            boldTextTitle: '',
+                            textAlert: 'Server error, please try again later.',
+                            mode: 'danger'
+                        }
+                        var modal = $scope.open(data);
+                        $timeout(function () { modal.close(); }, 3000);
+                }
+
+            });
+        };
+
+        $scope.register = function () {
+            $scope.registrationData.birthdate = $scope.datepicker.date.toISOString().substring(0, 10);
+            if ($scope.registrationData.emails.primary.length < 1) {
+                if ($scope.registrationData.emails.personal.length > 1) {
+                    $scope.registrationData.emails.primary = $scope.registrationData.emails.personal;
+                } else if ($scope.registrationData.emails.organization > 1) {
+                    $scope.registrationData.emails.primary = $scope.registrationData.emails.organization;
+                }
+            }
+            if ($scope.registrationData.mobileNumbers.primary.length < 1) {
+                if ($scope.registrationData.mobileNumbers.personal.length > 1) {
+                    $scope.registrationData.mobileNumbers.primary = $scope.registrationData.mobileNumbers.personal;
+                }
+            }
+            
+            //$scope.registrationData.mobileNumbers.primary = $scope.registrationData.mobileNumbers.personal;
+            //$scope.registrationData.emails.primary = $scope.registrationData.emails.personal;
+            $loading.start('login');
+            $http.post(registrationUrl, $scope.registrationData).then(function (response) {
+                $loading.finish('login');
+                switch (response.data.status) {
+                    case 'USER_EXISTS':
+                        var data = {
+                            boldTextTitle: '',
+                            textAlert: 'This username or email is already in use.',
+                            mode: 'danger'
+                        }
+                        var modal = $scope.open(data);
+                        $timeout(function () { modal.close(); }, 3000);
+                        break;
+                    case 'OK':
+                        var data = {
+                            boldTextTitle: '',
+                            textAlert: 'Registration successful.',
+                            mode: 'success'
+                        }
+                        var modal = $scope.open(data);
+                        $timeout(function () { modal.close(); }, 3000);
+                        $scope.switchLoginRegister();
+                        break;
+                    default:
+                        var data = {
+                            boldTextTitle: '',
+                            textAlert: 'Server error, please try again later.',
+                            mode: 'danger'
+                        }
+                        var modal = $scope.open(data);
+                        $timeout(function () { modal.close(); }, 3000);
+                }
+
+            });
         };
         
     }
