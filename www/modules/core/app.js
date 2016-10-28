@@ -8,7 +8,8 @@
         'darthwade.dwLoading',
         'ngAnimate',
         'homepage',
-        'login'])
+        'login',
+        'scan'])
         .config(config)
         .run(run);
 
@@ -25,14 +26,6 @@
     config.$inject = ['$urlRouterProvider', '$compileProvider', '$httpProvider', '$stateProvider'];
     function config($urlRouterProvider, $compileProvider, $httpProvider, $stateProvider) {
         $urlRouterProvider.otherwise('/homepage');
-
-        //Splash Page
-        /*$stateProvider
-            .state('splash', {
-                url: '/splash',
-                templateUrl: 'modules/splash/view/splash.html',
-                controller: 'splashCtrl'
-            });*/
 
         //Home Page
         $stateProvider
@@ -51,6 +44,14 @@
                 url: '/login',
                 templateUrl: 'modules/login/view/login.html',
                 controller: 'loginCtrl'
+            });
+
+        //Scan Page
+        $stateProvider
+            .state('scan', {
+                url: '/scan',
+                templateUrl: 'modules/scan/view/scan.html',
+                controller: 'scanCtrl'
             });
            
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ms-appx):/);

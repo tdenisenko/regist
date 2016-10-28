@@ -22,11 +22,9 @@
                 <input type="checkbox" name="checkLogin" id="checkLogin" ng-model="loginData.checkLogin" unchecked />
                 <label for="checkLogin">Remember my password</label>
             </div>
-            <br />
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submit-btn">Login</button>
-                <br />
-                <a ng-click="switchLoginRegister()" class="btn btn-link submit-btn">Create a new account</a>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-block">Login</button>
+                <a ng-click="switchLoginRegister()" class="btn btn-link btn-block">Create a new account</a>
             </div>
         </form>
     </div>
@@ -117,11 +115,9 @@
                     <a ng-if="registrationData.emails.others.length < 3 && $last" class="btn-link add-field" ng-click="addEmailField()"><span class="glyphicon glyphicon-plus-sign"></span> Add another email</a>
                 </ng-form>
             </div>
-            <br />
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submit-btn">Submit</button>
-                <br />
-                <a ng-click="switchLoginRegister()" class="btn btn-link submit-btn">I already have an account</a>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-block">Submit</button>
+                <a ng-click="switchLoginRegister()" class="btn btn-link btn-block">I already have an account</a>
             </div>
         </form>
     </div>
