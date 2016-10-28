@@ -40,7 +40,7 @@
     width: 80%;
     vertical-align: middle;
     left: 10%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     overflow-y: auto;
 }
 
