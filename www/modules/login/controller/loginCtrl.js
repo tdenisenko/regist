@@ -10,8 +10,9 @@
     function loginCtrl($scope, $timeout, $state, $window, $localStorage, $http, $loading, $uibModal) {
         $scope.loginRegister = 'Login';
         $scope.loginData = {
-            username: '',
-            password: ''
+            username: $localStorage.username == undefined ? '' : $localStorage.username,
+            password: $localStorage.password == undefined ? '' : $localStorage.password,
+            checkLogin: $localStorage.checkLogin == undefined ? false : $localStorage.checkLogin
         };
         $scope.registrationData = {
             firstname: '',
@@ -32,7 +33,6 @@
                 others: []
             }
         };
-
         /*$scope.datepicker = {
             date: '',
             dateOptions: {
@@ -234,6 +234,14 @@
                         $timeout(function () { modal.close(); }, 3000);
                         break;
                     case 'OK':
+                        $localStorage.username = $scope.loginData.username;
+                        if ($scope.loginData.checkLogin === true) {
+                            $localStorage.password = $scope.loginData.password;
+                            $localStorage.checkLogin = true;
+                        } else {
+                            delete $localStorage.password;
+                            delete $localStorage.checkLogin;
+                        }
                         $state.go('homepage', { splash: true });
                         break;
                     default:

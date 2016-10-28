@@ -19,6 +19,8 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="form-control" ng-model="loginData.password" required />
                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                <input type="checkbox" name="checkLogin" id="checkLogin" ng-model="loginData.checkLogin" unchecked />
+                <label for="checkLogin">Remember my password</label>
             </div>
             <br />
             <div class="form-actions">
