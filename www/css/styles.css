@@ -64,4 +64,8 @@
 .add-field {
     cursor: pointer;
 }
+
+.submit-btn {
+    width: 100%;
+}
 /*END LOGIN PAGE*/

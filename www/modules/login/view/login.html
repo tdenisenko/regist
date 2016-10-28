@@ -20,9 +20,11 @@
                 <input type="password" name="password" id="password" class="form-control" ng-model="loginData.password" required />
                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
             </div>
+            <br />
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Login</button>
-                <a ng-click="switchLoginRegister()" class="btn btn-link">Register</a>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submit-btn">Login</button>
+                <br />
+                <a ng-click="switchLoginRegister()" class="btn btn-link submit-btn">Create a new account</a>
             </div>
         </form>
     </div>
@@ -38,12 +40,16 @@
                 <input type="text" name="lastname" id="lastname" class="form-control" ng-model="registrationData.lastname" required />
                 <span ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Last Name is required</span>
             </div>
-            <div style="display: table;" class="form-group" ng-class="{ 'has-error': form.birthdate.$dirty && form.birthdate.$error.required }">
+            <!-- style="display: table;" -->
+            <div class="form-group" ng-class="{ 'has-error': form.birthdate.$dirty && form.birthdate.$error.required }">
                 <label for="birthdate">Birth Date</label>
+                <input type="date" id="birthdate" value="" class="form-control" ng-model="registrationData.birthdateObj" required />
+                <!-- input with datepicker bootstrap
                 <input style="display: table-cell; border-top-right-radius: 0; border-bottom-right-radius: 0;" type="text" class="form-control" uib-datepicker-popup ng-model="datepicker.date" is-open="datepicker.popup.opened" datepicker-options="datepicker.dateOptions" ng-required="true" close-text="Close" datepicker-append-to-body="true" required/>
                 <span class="input-group-btn" style="display: table-cell; vertical-align: bottom;">
                     <button style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 0;" type="button" class="btn btn-default" ng-click="datepicker.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
+                -->
                 <span ng-show="form.birthdate.$dirty && form.birthdate.$error.required" class="help-block">Birth Date is required</span>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
@@ -109,9 +115,11 @@
                     <a ng-if="registrationData.emails.others.length < 3 && $last" class="btn-link add-field" ng-click="addEmailField()"><span class="glyphicon glyphicon-plus-sign"></span> Add another email</a>
                 </ng-form>
             </div>
+            <br />
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Register</button>
-                <a ng-click="switchLoginRegister()" class="btn btn-link">Login</a>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary submit-btn">Submit</button>
+                <br />
+                <a ng-click="switchLoginRegister()" class="btn btn-link submit-btn">I already have an account</a>
             </div>
         </form>
     </div>

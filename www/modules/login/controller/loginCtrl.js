@@ -16,6 +16,7 @@
         $scope.registrationData = {
             firstname: '',
             lastname: '',
+            birthdateObj: undefined,
             birthdate: '',
             username: '',
             password: '',
@@ -32,7 +33,7 @@
             }
         };
 
-        $scope.datepicker = {
+        /*$scope.datepicker = {
             date: '',
             dateOptions: {
                 datepickerMode: 'year'
@@ -43,7 +44,7 @@
             openDatePicker: function () {
                 $scope.datepicker.popup.opened = true;
             }
-        }
+        }*/
 
         $scope.checkEmail = [true, false, false, false, false];
         $scope.checkMobile = [true, false, false, false, false];
@@ -249,22 +250,32 @@
         };
 
         $scope.register = function () {
-            $scope.registrationData.birthdate = $scope.datepicker.date.toISOString().substring(0, 10);
-            if ($scope.registrationData.emails.primary.length < 1) {
-                if ($scope.registrationData.emails.personal.length > 1) {
+            //$scope.registrationData.birthdate = $scope.datepicker.date.toISOString().substring(0, 10);
+            $scope.registrationData.birthdate = $scope.registrationData.birthdateObj.toISOString().substring(0, 10);
+
+            var idx = _.findIndex($scope.checkEmail, function (o) { return o; });
+            switch (idx) {
+                case 0:
                     $scope.registrationData.emails.primary = $scope.registrationData.emails.personal;
-                } else if ($scope.registrationData.emails.organization > 1) {
+                    break;
+                case 1:
                     $scope.registrationData.emails.primary = $scope.registrationData.emails.organization;
-                }
+                    break;
+                default:
+                    $scope.registrationData.emails.primary = $scope.registrationData.emails.others[idx - 2];
+                    break;
             }
-            if ($scope.registrationData.mobileNumbers.primary.length < 1) {
-                if ($scope.registrationData.mobileNumbers.personal.length > 1) {
+
+            idx = _.findIndex($scope.checkMobile, function (o) { return o; });
+            switch (idx) {
+                case 0:
                     $scope.registrationData.mobileNumbers.primary = $scope.registrationData.mobileNumbers.personal;
-                }
+                    break;
+                default:
+                    $scope.registrationData.mobileNumbers.primary = $scope.registrationData.mobileNumbers.others[idx - 1];
+                    break;
             }
             
-            //$scope.registrationData.mobileNumbers.primary = $scope.registrationData.mobileNumbers.personal;
-            //$scope.registrationData.emails.primary = $scope.registrationData.emails.personal;
             $loading.start('login');
             $http.post(registrationUrl, $scope.registrationData).then(function (response) {
                 $loading.finish('login');
