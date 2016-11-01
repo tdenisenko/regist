@@ -6,3 +6,4 @@ gen
 platforms/
 www/libs/
 plugins/
+/bin/Android/Debug
