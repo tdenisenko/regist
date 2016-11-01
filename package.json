@@ -6,16 +6,5 @@
   "devDependencies": {},
   "scripts": {
     "postinstall": "bower install"
-  },
-  "ios": {
-    "debug": {
-      "developmentTeam": "77V567X79B"
-    },
-
-    "release": {
-      "developmentTeam": "77V567X79B",
-      "codeSignIdentity": "iPhone Developer",
-      "packageType": "ad-hoc"
-    }
   }
 }
