@@ -7,4 +7,7 @@
   <PropertyGroup>
     <ReferenceCachePath>C:\Users\WishWon\AppData\Local\Temp\lf02z001_VuforiaTemp_refcache</ReferenceCachePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|iOS'">
+    <DebuggerFlavor>iOSLocalDevice</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

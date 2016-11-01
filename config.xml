@@ -26,6 +26,7 @@
     <allow-intent href="itms-apps:*" />
     <resource-file src="targets/StonesAndChips.xml" />
     <resource-file src="targets/StonesAndChips.dat" />
+    <hook type="before_compile" src="hooks/xcode8.js" />
   </platform>
   <feature name="Device">
     <param name="ios-package" value="CDVDevice" />
