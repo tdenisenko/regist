@@ -223,7 +223,8 @@
         }
 
         $scope.login = function () {
-            $loading.start('login');
+            $state.go('homepage', { splash: true });
+            /*$loading.start('login');
             $http.post(loginUrl, $scope.loginData).then(function (response) {
                 $loading.finish('login');
                 switch(response.data.status) {
@@ -257,7 +258,7 @@
                         $timeout(function () { modal.close(); }, 3000);
                 }
 
-            });
+            });*/
         };
 
         $scope.register = function () {
