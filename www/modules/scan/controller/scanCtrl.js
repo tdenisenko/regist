@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/*
+This is the controller for AR scan
+*/
+(function () {
     'use strict';
 
     angular
@@ -8,6 +11,7 @@
     scanCtrl.$inject = ['$scope', '$state'];
 
     function scanCtrl($scope, $state) {
+        //Set all vuforia functions
         var vuforia = {
             // Vuforia license
             vuforiaLicense: 'ARWew8T/////AAAAAFfGjmmevkaStzS/ubwzoq41fZDzeg7vVS4hFrktpLuHbBXUVEe7yawMjAXfruf810aenI4bFAH4pHgM/D5ErIyLhsn6ct1qnMRGJy2tqcRsTOHZuqnEMRLiCwtnANvO8qxN5DXztFJSqCgrW2can9708d5o32QvsB/T6eD1BKao9ZIMXApddusf7NLizCHkxAESC7+UQVPZYeiwr1VoJqbyhvaxd1CdDo55/wfGgkuQQenFsRrAnppQcPyYn0C51GmgdCa8JY6ynp6jI5UWMC7TIIji64rO5PSkp3Tn0lRsifD+2MyOCm3jAhrpF42wPaWa/XG3qbXUvXlatcDjVJDM4+prw3U2iOl+xW2cdvBX',

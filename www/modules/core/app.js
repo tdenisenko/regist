@@ -1,4 +1,9 @@
-﻿(function () {
+﻿/*
+This is the main app file for angularjs, it contains all
+modules and libraries. Also includes all states which are
+defined here.
+*/
+(function () {
     'use strict';
 
     angular.module('regist', [
