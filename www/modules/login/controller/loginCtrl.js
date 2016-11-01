@@ -120,15 +120,18 @@
 
         function onDeviceReady() {
             //console.log($localStorage.intro);
+            /*
             if ($localStorage.intro <= 1) {
                 $window.plugins.orientationLock.lock('landscape');
                 playInstructionsAndAds();
             } else {
                 playAds();
             }
+            */
+            playAds();
         }
 
-        function playInstructionsAndAds() {
+        /*function playInstructionsAndAds() {
             $window.VideoPlayer.play(
                 videoUrlLocal,
                 {
@@ -158,20 +161,20 @@
                     playAds();
                 }
             );
-        }
+        }*/
 
         function playAds() {
             var options = {
                 successCallback: function () {
                     console.log('web video completed');
-                    $window.plugins.orientationLock.lock('portrait');
-                    $window.plugins.orientationLock.unlock();
+                    //$window.plugins.orientationLock.lock('portrait');
+                    //$window.plugins.orientationLock.unlock();
                     showLogin();
                 },
                 errorCallback: function (errMsg) {
                     console.log('Web video error: ' + errMsg);
-                    $window.plugins.orientationLock.lock('portrait');
-                    $window.plugins.orientationLock.unlock();
+                    //$window.plugins.orientationLock.lock('portrait');
+                    //$window.plugins.orientationLock.unlock();
                     showLogin();
                 },
                 orientation: 'landscape',
