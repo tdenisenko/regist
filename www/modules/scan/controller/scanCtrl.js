@@ -14,7 +14,8 @@ This is the controller for AR scan
         //Set all vuforia functions
         var vuforia = {
             // Vuforia license
-            vuforiaLicense: 'ARWew8T/////AAAAAFfGjmmevkaStzS/ubwzoq41fZDzeg7vVS4hFrktpLuHbBXUVEe7yawMjAXfruf810aenI4bFAH4pHgM/D5ErIyLhsn6ct1qnMRGJy2tqcRsTOHZuqnEMRLiCwtnANvO8qxN5DXztFJSqCgrW2can9708d5o32QvsB/T6eD1BKao9ZIMXApddusf7NLizCHkxAESC7+UQVPZYeiwr1VoJqbyhvaxd1CdDo55/wfGgkuQQenFsRrAnppQcPyYn0C51GmgdCa8JY6ynp6jI5UWMC7TIIji64rO5PSkp3Tn0lRsifD+2MyOCm3jAhrpF42wPaWa/XG3qbXUvXlatcDjVJDM4+prw3U2iOl+xW2cdvBX',
+            //vuforiaLicense: 'ARWew8T/////AAAAAFfGjmmevkaStzS/ubwzoq41fZDzeg7vVS4hFrktpLuHbBXUVEe7yawMjAXfruf810aenI4bFAH4pHgM/D5ErIyLhsn6ct1qnMRGJy2tqcRsTOHZuqnEMRLiCwtnANvO8qxN5DXztFJSqCgrW2can9708d5o32QvsB/T6eD1BKao9ZIMXApddusf7NLizCHkxAESC7+UQVPZYeiwr1VoJqbyhvaxd1CdDo55/wfGgkuQQenFsRrAnppQcPyYn0C51GmgdCa8JY6ynp6jI5UWMC7TIIji64rO5PSkp3Tn0lRsifD+2MyOCm3jAhrpF42wPaWa/XG3qbXUvXlatcDjVJDM4+prw3U2iOl+xW2cdvBX',
+            vuforiaLicense: 'AQCQhAr/////AAAAGQmg4FBN/UBMhH1M+Pdp67t6nB2TTqqSaCZB1+il5wuk0UPl4D9QHSM3iexJpNYmyrYQNj6M49OfHkcSGspru0llmjmWusvrsBff+mLe287ZmktuZ0PZ/W4qhyH0wf7SXTNOg1hYxxjXtVO5y5ZTNof+/zf9O8w+0yrj4utU4S2KxE1qZXDtA3+BuFe+IuYuzS6XBkQB8iaTbLwirian+PDu4Jz8O3qZb+S9+aq4DNn0VrAUZW5TQErRYN0OdoXC9BxamWgaQsJfD5KSnrl3KrJFhVaDvw1wwSxtzedVbRO0Nbd/7Zi3d1oZKoZWZiEo/1Epmyo0c2ZW+6I50fkGVSnHKZl08jIa1cIotHD1O0Ba',
             // Are we launching Vuforia with simple options?
             simpleOptions: null,
             // Which images have we matched?
@@ -140,7 +141,8 @@ This is the controller for AR scan
                     overlayMessage = 'Point your camera at a test image...';
 
                 if (typeof targets == 'undefined')
-                    targets = ['stones', 'chips'];
+                    //targets = ['stones', 'chips'];
+                    targets = ['all-day-breakfast', 'ahair-rasing-event', 'sports-fest', 'food-film-festival'];
 
                 // Reset the matched images
                 vuforia.matchedImages = [];
@@ -151,17 +153,19 @@ This is the controller for AR scan
                 // Log out wether or not we are using simpleOptions
                 console.log('Simple options: ' + !!vuforia.simpleOptions);
 
+                console.log('New filepath: ' + $rootScope.datasetxml);
+
                 // Load either simple, or full options
                 if (!!vuforia.simpleOptions) {
                     options = {
-                        databaseXmlFile: 'www/targets/StonesAndChips.xml',
+                        databaseXmlFile: $rootScope.datasetxml,//'www/targets/StonesAndChips.xml',
                         targetList: targets,
                         overlayMessage: overlayMessage,
                         vuforiaLicense: vuforia.vuforiaLicense
                     };
                 } else {
                     options = {
-                        databaseXmlFile: 'www/targets/StonesAndChips.xml',
+                        databaseXmlFile: $rootScope.datasetxml,//'www/targets/StonesAndChips.xml',
                         targetList: targets,
                         vuforiaLicense: vuforia.vuforiaLicense,
                         overlayMessage: overlayMessage,
