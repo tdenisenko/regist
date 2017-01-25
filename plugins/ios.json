@@ -24,6 +24,9 @@
         },
         "cordova-plugin-media": {
             "PACKAGE_NAME": "io.cordova.vuforiaplugin"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "io.cordova.vuforiaplugin"
         }
     },
     "dependent_plugins": {

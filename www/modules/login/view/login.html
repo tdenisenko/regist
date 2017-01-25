@@ -41,15 +41,15 @@
                 <span ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Last Name is required</span>
             </div>
             <!-- style="display: table;" -->
-            <div class="form-group" ng-class="{ 'has-error': form.birthdate.$dirty && form.birthdate.$error.required }">
+            <div style="display: table;" class="form-group" ng-class="{ 'has-error': form.birthdate.$dirty && form.birthdate.$error.required }">
                 <label for="birthdate">Birth Date</label>
-                <input type="date" id="birthdate" value="" class="form-control" ng-model="registrationData.birthdateObj" required />
-                <!-- input with datepicker bootstrap
+                <!-- <input type="date" id="birthdate" value="" class="form-control" ng-model="registrationData.birthdateObj" required /> -->
+                <!-- input with datepicker bootstrap -->
                 <input style="display: table-cell; border-top-right-radius: 0; border-bottom-right-radius: 0;" type="text" class="form-control" uib-datepicker-popup ng-model="datepicker.date" is-open="datepicker.popup.opened" datepicker-options="datepicker.dateOptions" ng-required="true" close-text="Close" datepicker-append-to-body="true" required/>
                 <span class="input-group-btn" style="display: table-cell; vertical-align: bottom;">
                     <button style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 0;" type="button" class="btn btn-default" ng-click="datepicker.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
-                -->
+                
                 <span ng-show="form.birthdate.$dirty && form.birthdate.$error.required" class="help-block">Birth Date is required</span>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
@@ -80,7 +80,7 @@
             <div ng-repeat="m in registrationData.mobileNumbers.others track by $index" class="form-group" ng-class="{ 'has-error': userMobileForm.$dirty && userMobileForm.$error.required }">
                 <ng-form name="userMobileForm">
                     <label for="mobile">Other Mobile Number</label>
-                    <input type="text" name="mobile" id="mobile" class="form-control" ng-model="registrationData.mobileNumbers.others[$index]" />
+                    <input type="tel" name="mobile" id="mobile" class="form-control" ng-model="registrationData.mobileNumbers.others[$index]" />
                     <input ng-disabled="!(userMobileForm.mobile.$viewValue.length > 0)" type="checkbox" ng-attr-id="{{'checkMobile' + ($index + 2)}}" ng-attr-name="{{'checkMobile' + ($index + 2)}}" ng-model="checkMobile[$index+1]" ng-change="setPrimaryMobile(registrationData.mobileNumbers.others[$index], $index+1)" />
                     <label ng-disabled="!(userMobileForm.mobile.$viewValue.length > 0)" ng-attr-for="{{'checkMobile' + ($index + 2)}}">Make this number primary</label>
                     <br />

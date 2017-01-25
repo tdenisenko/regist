@@ -8,9 +8,9 @@ This is the controller for AR scan
         .module('scan', [])
         .controller('scanCtrl', scanCtrl);
 
-    scanCtrl.$inject = ['$scope', '$state'];
+    scanCtrl.$inject = ['$rootScope', '$scope', '$state'];
 
-    function scanCtrl($scope, $state) {
+    function scanCtrl($rootScope, $scope, $state) {
         //Set all vuforia functions
         var vuforia = {
             // Vuforia license
@@ -39,6 +39,8 @@ This is the controller for AR scan
             // function, we must explicitly call 'app.receivedEvent(...);'
             onDeviceReady: function () {
                 vuforia.receivedEvent('deviceready');
+                //Jump start Vuforia without overlay text after uses logins.
+                vuforia.startVuforia(true, undefined, null);
             },
             // Update DOM on a Received Event
             receivedEvent: function (id) {

@@ -12,6 +12,7 @@ defined here.
         'ngStorage',
         'darthwade.dwLoading',
         'ngAnimate',
+        'ngCordova',
         'homepage',
         'login',
         'scan'])

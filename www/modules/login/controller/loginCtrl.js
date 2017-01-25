@@ -37,7 +37,7 @@ This is the controller for login page
                 others: []
             }
         };
-        /*$scope.datepicker = {
+        $scope.datepicker = {
             date: '',
             dateOptions: {
                 datepickerMode: 'year'
@@ -48,7 +48,7 @@ This is the controller for login page
             openDatePicker: function () {
                 $scope.datepicker.popup.opened = true;
             }
-        }*/
+        }
 
         $scope.checkEmail = [true, false, false, false, false];
         $scope.checkMobile = [true, false, false, false, false];
@@ -282,8 +282,8 @@ This is the controller for login page
 
         //Registration via http request
         $scope.register = function () {
-            //$scope.registrationData.birthdate = $scope.datepicker.date.toISOString().substring(0, 10);
-            $scope.registrationData.birthdate = $scope.registrationData.birthdateObj.toISOString().substring(0, 10);
+            $scope.registrationData.birthdate = $scope.datepicker.date.toISOString().substring(0, 10);
+            //$scope.registrationData.birthdate = $scope.registrationData.birthdateObj.toISOString().substring(0, 10);
 
             var idx = _.findIndex($scope.checkEmail, function (o) { return o; });
             switch (idx) {
