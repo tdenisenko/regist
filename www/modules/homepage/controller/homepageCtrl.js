@@ -8,9 +8,9 @@ This is the controller for home page.
         .module('homepage', [])
         .controller('homepageCtrl', homepageCtrl);
 
-    homepageCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$cordovaFileTransfer'];
+    homepageCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$cordovaFileTransfer', '$http'];
 
-    function homepageCtrl($rootScope, $scope, $state, $stateParams, $timeout, $cordovaFileTransfer) {
+    function homepageCtrl($rootScope, $scope, $state, $stateParams, $timeout, $cordovaFileTransfer, $http) {
         //If called after a successful login, go to AR scan
         if ($stateParams.splash === true) {
             $scope.splash = $stateParams.splash;
@@ -45,6 +45,7 @@ This is the controller for home page.
                       console.log("download complete: " + result.toURL());
                       $rootScope.datasetxml = result.toURL();
                       downloadDat();
+                      parseXmlToJson();
                   }, function (error) {
                       console.log('Download failed:');
                       console.log("download error source " + error.source);
@@ -63,7 +64,6 @@ This is the controller for home page.
                     $cordovaFileTransfer.download(url, targetPath, options, trustHosts)
                       .then(function (result) {
                           console.log("download complete: " + result.toURL());
-                          $rootScope.datasetdat = result.toURL();
                           $rootScope.isDownloaded = true;
                       }, function (error) {
                           console.log('Download failed:');
@@ -75,6 +75,14 @@ This is the controller for home page.
                               $scope.downloadProgress = (progress.loaded / progress.total) * 100;
                           });
                       });
+                }
+
+                function parseXmlToJson() {
+                    $http.get($rootScope.datasetxml).then(function (xml) {
+                        var x2js = new X2JS();
+                        var json = x2js.xml_str2json(xml.data);
+                        $rootScope.targets = _.map(json.QCARConfig.Tracking.ImageTarget, '_name');
+                    });
                 }
             }
         }

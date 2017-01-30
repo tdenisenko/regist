@@ -140,9 +140,11 @@ This is the controller for AR scan
                 if (typeof overlayMessage == 'undefined')
                     overlayMessage = 'Point your camera at a test image...';
 
-                if (typeof targets == 'undefined')
+                if (typeof targets == 'undefined') {
                     //targets = ['stones', 'chips'];
-                    targets = ['all-day-breakfast', 'ahair-rasing-event', 'sports-fest', 'food-film-festival'];
+                    //targets = ['all-day-breakfast', 'ahair-rasing-event', 'sports-fest', 'food-film-festival'];
+                    targets = $rootScope.targets;
+                }
 
                 // Reset the matched images
                 vuforia.matchedImages = [];

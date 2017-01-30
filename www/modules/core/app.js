@@ -15,7 +15,8 @@ defined here.
         'ngCordova',
         'homepage',
         'login',
-        'scan'])
+        'scan'/*,
+        'eventregistration'*/])
         .config(config)
         .run(run);
 
@@ -59,6 +60,14 @@ defined here.
                 templateUrl: 'modules/scan/view/scan.html',
                 controller: 'scanCtrl'
             });
+
+        //Event Registration Page
+        /*$stateProvider
+            .state('eventregistration', {
+                url: '/eventregistration',
+                templateUrl: 'modules/eventregistration/view/eventregistration.html',
+                controller: 'eventregistrationCtrl'
+            });*/
            
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ms-appx):/);
 
