@@ -1,10 +1,10 @@
-﻿<div ng-if="!splash" class="splash">
+﻿<div ng-hide="splash" class="splash">
     <div class="splash-center">
         <img src="img/logo.png" />
         <p>Splash Page</p>
     </div>
 </div>
-<div ng-if="splash" class="login-container myfade" dw-loading="login">
+<div ng-show="splash" class="login-container myfade" dw-loading="login">
     <div class="login-title">
         <h3>{{loginRegister}}</h3>
     </div>

@@ -94,6 +94,10 @@
     height: 100%;
 }
 
+.event-registration-container.splash-view {
+    padding-top: 50%;
+}
+
 .event-registration-container h3,
 .event-registration-container h4,
 .event-registration-container label {

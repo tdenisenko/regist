@@ -1,4 +1,20 @@
-﻿<div class="event-registration-container" ng-style="{'background-color': event.design_color, 'color': event.design_color }" dw-loading="eventregistration">
+﻿<div ng-show="showSplash" class="event-registration-container splash-view myfade" ng-style="{'background-color': event.design_color, 'color': event.design_color }">
+    <div class="logo-container">
+        <img class="logo" ng-src="{{event.logo}}" />
+    </div>
+    <div class="login-title">
+        <h3>Welcome to {{event.name}}</h3>
+    </div>
+</div>
+<div ng-show="showThanks" class="event-registration-container splash-view myfade" ng-style="{'background-color': event.design_color, 'color': event.design_color }">
+    <div class="logo-container">
+        <img class="logo" ng-src="{{event.logo}}" />
+    </div>
+    <div class="login-title">
+        <h3>Thank you for registering into {{event.name}}</h3>
+    </div>
+</div>
+<div ng-hide="showSplash || showThanks" class="event-registration-container myfade" ng-style="{'background-color': event.design_color, 'color': event.design_color }" dw-loading="eventregistration">
     <div class="login-container myfade" dw-loading="registration">
         <div class="logo-container">
             <img class="logo" ng-src="{{event.logo}}" />

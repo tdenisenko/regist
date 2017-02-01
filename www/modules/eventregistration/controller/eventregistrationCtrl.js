@@ -8,9 +8,11 @@ This is the controller for event registration page
         .module('eventregistration', [])
         .controller('eventregistrationCtrl', eventregistrationCtrl);
 
-    eventregistrationCtrl.$inject = ['$rootScope', '$scope', '$http', '$loading'];
+    eventregistrationCtrl.$inject = ['$rootScope', '$scope', '$http', '$loading', '$timeout', '$state'];
 
-    function eventregistrationCtrl($rootScope, $scope, $http, $loading) {
+    function eventregistrationCtrl($rootScope, $scope, $http, $loading, $timeout, $state) {
+        $scope.showSplash = true;
+        $scope.showThanks = false;
         $scope.event = {};
         $scope.user = {};
         var eventDetailsUrl = 'http://regis.ladargroup.com/api/event/template';
@@ -27,6 +29,9 @@ This is the controller for event registration page
             });
             $scope.event = event;
             $scope.user = eventInfo.data.user;
+            $timeout(function () {
+                $scope.showSplash = false;
+            }, 3000);
         });
         var saveEventInfoUrl = 'http://regis.ladargroup.com/api/event/info';
         $scope.registerEvent = function () {
@@ -42,7 +47,10 @@ This is the controller for event registration page
                 $loading.finish('eventregistration');
                 if (response.data.status === 'OK') {
                     console.log('event registration successful');
-                    $state.go('homepage', { eventRegistrationCallback: true });
+                    $scope.showThanks = true;
+                    $timeout(function () {
+                        $state.go('homepage', { eventRegistrationCallback: true });
+                    }, 3000);
                 }
             });
         };
