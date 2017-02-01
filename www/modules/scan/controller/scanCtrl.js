@@ -39,10 +39,36 @@ This is the controller for AR scan
             // The scope of 'this' is the event. In order to call the 'receivedEvent'
             // function, we must explicitly call 'app.receivedEvent(...);'
             onDeviceReady: function () {
-                vuforia.receivedEvent('deviceready');
+                //vuforia.receivedEvent('deviceready');
+                //Set success callback function
+                var onSuccess = function (data) {
+                    // Have we found an image?
+                    if (data.status.imageFound) {
+                        // If we are using simple options, add the eventId to root scope and navigate to homepage
+                        if (vuforia.simpleOptions) {
+                            $rootScope.eventId = data.result.imageName;
+                            $state.go('homepage', { vuforiaCallback: true });
+                        } else { // If we are using full options, add the image to an array of images matched
+                            vuforia.matchedImages.push(data.result.imageName);
+                            vuforia.playSound(); // Play a sound so that the user has some feedback
+                        }
+                    }
+                        // Are we manually closing?
+                    else if (data.status.manuallyClosed) {
+                        //Close the app
+                        navigator.app.exitApp();
+
+                        // If we've matched any images, tell the user what we found
+                        if (vuforia.matchedImages.length) {
+                            //alert("Found:\n" + vuforia.matchedImages);
+                        }
+                    }
+                };
+                //Set overlay text message
+                var overlayText = 'Please point your camera at the event image';
                 //Jump start Vuforia without overlay text after uses logins.
-                vuforia.startVuforia(true, undefined, null);
-            },
+                vuforia.startVuforia(true, onSuccess, overlayText);
+            },/*
             // Update DOM on a Received Event
             receivedEvent: function (id) {
                 // Start Vuforia using simple options
@@ -132,17 +158,18 @@ This is the controller for AR scan
                         }
                     );
                 };
-            },
+            },*/
             // Start the Vuforia plugin
             startVuforia: function (simpleOptions, successCallback, overlayMessage, targets) {
                 var options;
 
                 if (typeof overlayMessage == 'undefined')
-                    overlayMessage = 'Point your camera at a test image...';
+                    overlayMessage = 'Point your camera at test image';
 
                 if (typeof targets == 'undefined') {
                     //targets = ['stones', 'chips'];
                     //targets = ['all-day-breakfast', 'ahair-rasing-event', 'sports-fest', 'food-film-festival'];
+                    //Get the targets from the root scope which we read from the previously downloaded XML file
                     targets = $rootScope.targets;
                 }
 

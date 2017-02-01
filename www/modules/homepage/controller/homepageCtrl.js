@@ -8,17 +8,21 @@ This is the controller for home page.
         .module('homepage', [])
         .controller('homepageCtrl', homepageCtrl);
 
-    homepageCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$cordovaFileTransfer', '$http'];
+    homepageCtrl.$inject = ['$rootScope', '$scope', '$state', '$stateParams', '$timeout', '$cordovaFileTransfer', '$http', '$loading'];
 
-    function homepageCtrl($rootScope, $scope, $state, $stateParams, $timeout, $cordovaFileTransfer, $http) {
+   function homepageCtrl($rootScope, $scope, $state, $stateParams, $timeout, $cordovaFileTransfer, $http, $loading) {
         //If called after a successful login, go to AR scan
         if ($stateParams.splash === true) {
             $scope.splash = $stateParams.splash;
             $state.go('scan', {}, { location: false });
         }
-        //if called after successful AR scan, go to ...
+        //if called after successful AR scan, go to event registration page
         else if ($stateParams.vuforiaCallback === true) {
-
+            $state.go('eventregistration', {}, { location: false });
+        }
+        //if called after successful event registration, go to ...
+        else if ($stateParams.eventRegistrationCallback === true) {
+            $state.go('userlist', {}, { location: false });
         }
         //If called when app first opens, go to login page
         else {
@@ -34,6 +38,7 @@ This is the controller for home page.
         //Download markers when device is ready
         function onDeviceReady() {
             if (!$rootScope.isDownloaded) {
+                $loading.start('login');
                 console.log('Downloading...');
                 var url = encodeURI('http://regis.ladargroup.com/datasets/regis.xml');
                 var targetPath = cordova.file.externalApplicationStorageDirectory + '/dataset.xml';
@@ -65,6 +70,7 @@ This is the controller for home page.
                       .then(function (result) {
                           console.log("download complete: " + result.toURL());
                           $rootScope.isDownloaded = true;
+                          $loading.finish('login');
                       }, function (error) {
                           console.log('Download failed:');
                           console.log("download error source " + error.source);

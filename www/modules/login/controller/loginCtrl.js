@@ -8,9 +8,9 @@ This is the controller for login page
         .module('login', [])
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$scope', '$timeout', '$state', '$window', '$localStorage', '$http', '$loading', '$uibModal'];
+    loginCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$state', '$window', '$localStorage', '$http', '$loading', '$uibModal'];
 
-    function loginCtrl($scope, $timeout, $state, $window, $localStorage, $http, $loading, $uibModal) {
+    function loginCtrl($rootScope, $scope, $timeout, $state, $window, $localStorage, $http, $loading, $uibModal) {
         //Variable declarations
         $scope.loginRegister = 'Login';
         $scope.loginData = {
@@ -257,6 +257,7 @@ This is the controller for login page
                     //If correct info show message and go to homepage
                     case 'OK':
                         $localStorage.username = $scope.loginData.username;
+                        $rootScope.userId = response.data.user.id;
                         if ($scope.loginData.checkLogin === true) {
                             $localStorage.password = $scope.loginData.password;
                             $localStorage.checkLogin = true;

@@ -1,25 +1,23 @@
-﻿<div class="login-container myfade" dw-loading="registration">
-    <div class="login-title">
-        <h3>{{loginRegister}}</h3>
-    </div>
-    <div class="login-content myfade">
-        <form name="form" ng-submit="login()" role="form">
-            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                <label for="username">Username</label>
-                <input autocapitalize="off" type="text" name="username" id="username" class="form-control" ng-model="loginData.username" required />
-                <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
-            </div>
-            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" ng-model="loginData.password" required />
-                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-                <input type="checkbox" name="checkLogin" id="checkLogin" ng-model="loginData.checkLogin" unchecked />
-                <label for="checkLogin">Remember my password</label>
-            </div>
-            <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-block">Login</button>
-                <a ng-click="switchLoginRegister()" class="btn btn-link btn-block">Create a new account</a>
-            </div>
-        </form>
+﻿<div class="event-registration-container" ng-style="{'background-color': event.design_color, 'color': event.design_color }" dw-loading="eventregistration">
+    <div class="login-container myfade" dw-loading="registration">
+        <div class="logo-container">
+            <img class="logo" ng-src="{{event.logo}}" />
+        </div>
+        <div class="login-title">
+            <h3>Welcome to {{event.name}}</h3>
+            <h4 class="sub-title">Please fill the form below</h4>
+        </div>
+        <div class="login-content myfade">
+            <ng-form name="userFieldForm">
+                <div class="form-group" ng-repeat="field in event.fields" ng-class="{ 'has-error': userFieldForm[field.field].$dirty && form.field.$error.required }">
+                    <label>{{field.label}}</label>
+                    <input autocapitalize="off" type="text" name="{{field.field}}" class="form-control" ng-model="user[field.field_name]" ng-required="field.required" />
+                    <span ng-show="userFieldForm[field.field].$dirty && userFieldForm[field.field].$error.required" class="help-block">{{field.label}} is required</span>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" ng-click="registerEvent()" ng-disabled="userFieldForm.$invalid" class="btn btn-primary btn-block">Continue</button>
+                </div>
+            </ng-form>
+        </div>
     </div>
 </div>

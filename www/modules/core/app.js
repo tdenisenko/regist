@@ -15,8 +15,8 @@ defined here.
         'ngCordova',
         'homepage',
         'login',
-        'scan'/*,
-        'eventregistration'*/])
+        'scan',
+        'eventregistration'])
         .config(config)
         .run(run);
 
@@ -41,7 +41,9 @@ defined here.
                 templateUrl: 'modules/homepage/view/homepage.html',
                 controller: 'homepageCtrl',
                 params: {
-                    splash: false
+                    splash: false,
+                    vuforiaCallback: false,
+                    eventRegistrationCallback: false
                 }
             });
 
@@ -62,12 +64,12 @@ defined here.
             });
 
         //Event Registration Page
-        /*$stateProvider
+        $stateProvider
             .state('eventregistration', {
                 url: '/eventregistration',
                 templateUrl: 'modules/eventregistration/view/eventregistration.html',
                 controller: 'eventregistrationCtrl'
-            });*/
+            });
            
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ms-appx):/);
 
