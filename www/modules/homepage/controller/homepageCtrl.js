@@ -22,7 +22,7 @@ This is the controller for home page.
         }
         //if called after successful event registration, go to ...
         else if ($stateParams.eventRegistrationCallback === true) {
-            $state.go('userlist', {}, { location: false });
+            $state.go('network', {}, { location: false });
         }
         //If called when app first opens, go to login page
         else {

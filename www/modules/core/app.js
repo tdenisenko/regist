@@ -16,7 +16,8 @@ defined here.
         'homepage',
         'login',
         'scan',
-        'eventregistration'])
+        'eventregistration',
+        'network'])
         .config(config)
         .run(run);
 
@@ -69,6 +70,14 @@ defined here.
                 url: '/eventregistration',
                 templateUrl: 'modules/eventregistration/view/eventregistration.html',
                 controller: 'eventregistrationCtrl'
+            });
+
+        //Network Page
+        $stateProvider
+            .state('network', {
+                url: '/network',
+                templateUrl: 'modules/network/view/network.html',
+                controller: 'networkCtrl'
             });
            
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|ms-appx):/);
