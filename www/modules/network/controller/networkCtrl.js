@@ -1,5 +1,5 @@
 ﻿/*
-This is the controller for event registration page
+This is the controller for network page
 */
 (function () {
     'use strict';
